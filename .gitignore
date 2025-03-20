@@ -1,0 +1,62 @@
+# Ignore virtual environments
+venv/
+.env/
+*.venv/
+
+# Ignore Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore logs and database files
+*.log
+*.sqlite3
+*.db
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore PyCharm project files
+.idea/
+*.iml
+
+# Ignore environment and dependency files
+env/
+*.env
+.envrc
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore package build files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Ignore pytest cache
+.cache/
+.pytest_cache/
+
+# Ignore coverage reports
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+.cache/
+
+# Ignore mypy and type checking files
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Ignore Jupyter Notebook output
+*.ipynb_checkpoints/
+
+# Ignore temporary files
+*.swp
+*.swo
+*~
