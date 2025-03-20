@@ -8,7 +8,6 @@ The project uses **Python** and the **gymnasium** library to create and manage t
 ---
 
 ## 📂 Repository Structure
-reinforcement-learning-course/
 ├── environments/                  # Reinforcement learning environments
 ├── tutorials/                     # tutorials 
 ├── main.py                        # entry point
