@@ -9,19 +9,7 @@ The project uses **Python** and the **gymnasium** library to create and manage t
 
 ## 📂 Repository Structure
 
-reinforcement-learning-course/
-│── environments/ # Custom RL environments │
-    │── init.py │
-    │── windy_grid_world.py │
-    │── cliff_walking.py │
-    │── frozen_lake.py │
-    │── blackjack.py │
-── tutorials/ # Tutorial scripts (to be implemented) 
-│── main.py # Example usage of environments 
-│── requirements.txt # Project dependencies 
-│── .gitignore # Files and folders to ignore 
-│── README.md # Project documentation
-
+reinforcement-learning-course/ ├── environments/ # Ambienti RL personalizzati │ ├── init.py # Inizializzazione pacchetto │ ├── windy_grid_world.py # Ambiente Windy Grid World │ ├── cliff_walking.py # Ambiente Cliff Walking │ ├── frozen_lake.py # Ambiente Frozen Lake │ └── blackjack.py # Ambiente Blackjack ├── tutorials/ # Script di tutorial (da implementare) ├── main.py # Uso degli ambienti ├── requirements.txt # Dipendenze del progetto ├── .gitignore # File e cartelle da ignorare └── README.md # Documentazione del progetto
 
 ---
 
@@ -29,7 +17,7 @@ reinforcement-learning-course/
 
 ### 1️⃣ Clone the repository
 
-git clone https://github.com/your-username/reinforcement-learning-course.git
+git clone https://github.com/your-username/reinforcement-learning-practicals.git
 cd reinforcement-learning-course
 
 ## ️2️⃣ Create a virtual environment (optional but recommended)
