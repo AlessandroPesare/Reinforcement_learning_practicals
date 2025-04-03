@@ -1,0 +1,277 @@
+Question 1:
+Think of a (preferably creative) application of reinforcement learning.
+Specify the states, actions, and rewards as well as what is needed to satisfy the Markov property.
+
+Reinforcement Learning for Knowledge Graph Reasoning:
+Knowledge graphs represent information as entities (nodes) and relationships (edges).
+While they're powerful, they often have missing links.
+Here's how RL could be applied:
+States
+The state space consists of:
+- Current entity node in the knowledge graph (randomly selected at the first step or others smartest criteria)
+- History of traversed entities and relations in the current reasoning path
+Query type being answered (e.g., "find the capital of X")
+Goal entity or attribute to be discovered
+
+Actions
+The agent can:
+
+Follow any outgoing edge from the current entity to another entity
+Backtrack to a previously visited node
+Terminate the search and return the current entity as the answer
+Apply a logical operation to combine information from multiple paths
+
+Rewards
+
+Positive reward when the agent reaches the correct entity that answers the query
+Small negative reward for each step taken (encourages efficient paths)
+Larger negative reward for returning an incorrect answer
+Larger rewards for discovering novel but valid reasoning paths
+
+Markov Property
+To satisfy the Markov property (future states depend only on the current state):
+
+The state representation must include the current position in the graph
+For multi-hop reasoning, we need to include the history of traversed nodes/relations in the state
+The state should encode the query being answered
+--------------------------------------------------------------------------------------
+Question 2:
+Goal-directed learning task that is not an MDP. Try to find a goal-directed learning task that cannot be represented by a Markov decision process.
+
+Language Learning with Context-Dependent Meanings
+Language learning, particularly understanding context-dependent meanings and cultural references,
+cannot be fully represented as an MDP because:
+
+Understanding a sentence often requires information from far beyond the immediate context.
+For example, resolving pronouns or understanding callbacks to earlier conversations may depend on
+information from arbitrarily far in the past.
+The state (including speaker intentions, cultural context...) is never fully observable to the learner.
+Ambiguous State Transitions: The same action (saying a phrase) can lead to different states
+depending on cultural context, tone, that are not captured in any finite state representation.
+Reward Ambiguity: There's no clear immediate reward signal for using language appropriately in all contexts.
+
+This learning task violates the Markov property because the true state of the environment depends on the entire history of interactions and cultural context, not just the current observable state.
+--------------------------------------------------------------------------------------
+Question 3:
+as – 𝜖-greedy action selection.
+Assume that 𝜖-greedy action selection is used.
+(a) Suppose |𝒜| = 4 and 𝜖 = 0.2. When using 𝜖-greedy action selection, what is the probability that the greedy action is selected?
+(b) Which value of 𝜖 would achieve a probability of 70% of selecting the greedy action?
+(c) Generalize the formula for calculating the probability of selecting the greedy action in 𝜖-greedy action selection for any |𝒜| and any 𝜖.
+
+a. 0.8 + 0.2 * 1/4 = 0.85
+b. 1 - epsilon + 1/4 * epsilon = 0.75 --> epsilon = 0.4
+c. 1 - epsilon + 1/|A| * epsilon
+--------------------------------------------------------------------------------------
+Question 4:
+armonic step sizes. Show that the step sizes
+𝛼_𝑛∶= 1/𝑎𝑛+𝑏   𝑎,𝑏∈R
+(where 𝑎 ∈ R+ and 𝑏 ∈ R are chosen such that 𝑎𝑛+𝑏 ≠ 0) satisfy the convergence conditions:
+∑𝛼_𝑛 = ∞, ∑(𝛼_𝑛)^2 <∞.  𝑛 = 1...∞
+
+
+∑𝛼_𝑛 = ∑1/𝑎𝑛+𝑏 <= ∑1/𝑎𝑛 = 1/𝑎 * ∑1/𝑛 harmonic series known to diverge
+then ∑𝛼_𝑛 = ∞
+
+∑(𝛼_𝑛)^2 = ∑1/(𝑎𝑛+𝑏)^2 <= ∑1/(𝑎𝑛)2 = 1/𝑎^2 * ∑1/𝑛^2
+
+p-series with exponent p>1 which is known to converge.
+--------------------------------------------------------------------------------------
+Question 5:
+Unbiased step sizes. We use the iteration 𝑄1 ∈ R,
+𝑄_𝑛+1 ∶=𝑄_𝑛 +𝛼_𝑛(𝑅_𝑛 −𝑄_𝑛), 𝑛≥1.
+to estimate 𝑄_𝑛 using 𝑅_𝑛, where
+𝛼_𝑛 ∶= 𝛼/𝛽_𝑛 , 𝛼 ∈ (0, 1), 𝑛 ≥ 1,
+and 𝛽_0 ∶= 0, 𝛽_𝑛 ∶=𝛽_𝑛−1 +𝛼(1−𝛽_𝑛−1), 𝑛≥1,
+
+Show that the iteration for 𝑄_𝑛 above yields an exponential
+recency-weighted average without initial bias
+(i.e., the 𝑄_𝑛 do not depend on the initial value 𝑄_1).
+
+𝛽_0 ∶= 0, 𝛽_𝑛 ∶=𝛽_𝑛−1 +𝛼(1−𝛽_𝑛−1), 𝑛≥1,
+𝛼_𝑛 ∶= 𝛼/𝛽_𝑛
+𝑄_1 is unknown
+𝑄_𝑛+1 ∶=𝑄_𝑛 +𝛼_𝑛(𝑅_𝑛 −𝑄_𝑛), 𝑛≥1.
+
+n = 1:
+𝛽_1 = 𝛽_0 + 𝛼(1−𝛽_0) = 𝛼
+𝛼_1 ∶= 𝛼/𝛽_1 = 1
+𝑄_2 = 𝑄_1 + 𝛼_1(𝑅_1 −𝑄_1) = 𝑅_1
+This means that after the very first update,
+the estimate is exactly equal to the first reward and 𝑄_1
+has been completely replaced by the observed data, ensuring that
+the process is unbiased with respect to the initial value.
+
+n>1
+𝑄_𝑛+1 ∶=𝑄_𝑛 +𝛼_𝑛(𝑅_𝑛 −𝑄_𝑛)
+𝛽_n = 𝛽_n-1 + 𝛼(1−𝛽_n-1) = 𝛼 + 𝛽_n-1(1-𝛼)
+This recurrence defines a function f such that:
+f(β)=(1−𝛼)β+𝛼.
+A function f is called a contraction if there exists a constant L
+with 0<L<1 such that for every x,y:
+∣f(x)−f(y)∣≤L∣x−y∣.
+How do we verify this for our function?
+f(β)=(1−𝛼)β+𝛼
+Calculate the derivative:
+The derivative of f with respect to β is:
+f′(β)=1−𝛼.
+Check the contraction condition:
+Since 𝛼∈(0,1) we have:
+∣f′(β)∣=∣1−𝛼∣<1.
+This tells us that f shrinks the distance between any two points
+by a factor of at most ∣1−𝛼∣ which is less than 1.
+Since f is a contraction on a complete space (for instance, the real numbers R)
+the theorem guarantees:
+Existence and Uniqueness: There exists a unique fixed point
+β^* such that β^*=f(β^*)
+Convergence: For any initial value β_0 the sequence defined by
+β_n=f(β_n-1) converges to β^*
+
+A fixed point of a function or recurrence is a value that doesn't
+change when the function is applied. In other words, if you have a
+function g and β is a fixed point then:
+β = g(β)
+
+In our case:
+
+β_n = (1-𝛼)β_n-1 + 𝛼, a fixed point β must satisfy:
+
+β = (1−𝛼)β + 𝛼
+β = 1 --> 𝛼_𝑛 ∶= 𝛼/𝛽_𝑛 = 𝛼
+𝑄_𝑛+1 ∶=𝑄_𝑛(1-𝛼)+ 𝛼𝑅_𝑛, 𝑛≥1.
+This is the standard formula for an exponential moving average.
+--------------------------------------------------------------------------------------
+Question 6:
+Multi-armed bandits with 𝜖-greedy action selection (programming).
+You play against a 10-armed bandit, where at the beginning of each
+episode the true value 𝑞∗(𝑎), 𝑎 ∈ {1, ... , 10}, of each of the 10
+actions is chosen to be normally distributed with mean zero and unit
+variance. The rewards after choosing action/bandit 𝑎 are normally
+distributed with mean 𝑞∗(𝑎) and unit variance. Using the simple
+bandit algorithm and 𝜖-greedy action selection, you have 1000 time
+steps or tries in each episode to maximize the average reward starting
+from zero knowledge about the bandits. Which value of 𝜖 maximizes
+the average reward? Which value of 𝜖 maximizes the percentage of
+optimal actions taken?
+
+see run_experiments.py
+-epsilon = 0.1
+-epsilon = 0.1
+
+Medium article:
+https://medium.com/@ym1942/exploring-multi-armed-bandit-problem-epsilon-greedy-epsilon-decreasing-ucb-and-thompson-02ad0ec272ee
+--------------------------------------------------------------------------------------
+Question 7:
+mab/ucb – Multi-armed bandits with upper-confidence-bound action selection (programming).
+This exercise is the same as in Exercise mab/eps, but now the actions
+𝐴𝑡 ∶=argmax(𝑄𝑡(𝑎)+𝑐√ ln𝑡 ) 𝑎 𝑁𝑡(𝑎)
+are selected according to the upper-confidence bound. Which value of 𝑐 yields the largest average reward?
+
+see run_experiments.py
+- c = 1
+--------------------------------------------------------------------------------------
+Question 8:
+mab/softmax – Multi-armed bandits with soft-max action selection (programming).
+This exercise is the same as Exercise mab/eps, but now the actions 𝐴𝑡 ∈ 𝒜 = {1, ... , |𝒜|} are selected with probability
+P[𝑎] = exp(𝑄𝑡(𝑎)/𝜏) , ∑|𝒜| exp(𝑄𝑡(𝑖)/𝜏)
+𝑖=1
+where the parameter 𝜏 is called the temperature. This probability
+distribution is called the soft-max or Boltzmann distribution.
+What are the effects of low and high temperatures, i.e., how does the temperature influence the probability distribution all else being equal? Which value of 𝜏 yields the largest average reward?
+
+τ (Temperature):
+Low τ
+When τ is very small, the exponent exp(Qt(a)/τ)	magnifies the differences between action values.
+The action with the highest Qt(a) will have almost all the probability, making the selection almost deterministic (greedy).
+High τ
+When τ is very large, the exponent scales down the differences, and the probabilities for all actions tend to become similar,
+leading to nearly uniform random selection.
+Empirical results suggest that a temperature around τ=0.1 typically yields the largest average reward in the 10-armed bandit problem.
+see run_experiments.py
+--------------------------------------------------------------------------------------
+Question 9:
+mdp/g1 – Returns and episodes. Suppose 𝛾∶=1/2 and the rewards 𝑅1 ∶=1,𝑅2 ∶=−1,𝑅3 ∶=2,
+𝑅4 ∶= −1, and 𝑅5 ∶= 2 are received in an episode with length 𝑇 ∶= 5. What are 𝐺0,...,𝐺5?
+𝐺𝑡 ∶= ∑ 𝛾^[𝑘−(𝑡+1)] 𝑅𝑘 =𝑅𝑡+1 +𝛾𝑅𝑡+2 +⋯, k = t+1....T
+𝐺𝑡 = 𝑅𝑡+1 + Gt+1
+G0 = 1
+G1 = -1 + 1 = 0
+G2 = 2 + 1/2*0 = 2
+G3 = -1 + 1/2 * 2 = 0
+G4 = 2 + 1/2 * 0 = 2
+G5 = 0
+--------------------------------------------------------------------------------------
+Question 10:
+Suppose 𝛾 ∶= 0.9 and the reward sequence starts with 𝑅1 ∶= −1 and 𝑅2 ∶= 2 and is followed
+by an infinite sequence of 1s. What are 𝐺0, 𝐺1, and 𝐺2?
+
+G0=R1+γR2+γ^2R3+γ^3R4....=−1+0.9⋅2+γ^2⋅1+γ^3⋅1+…
+=−1+1.8+∑0.9^k k>=2
+= -1+1.8+(0.9^2/1-0.9) = -1+1.8+8.1 = 8.9
+
+G1=R2+γR3+γ^2R4....=2+0.9⋅1+γ^2⋅1+γ^3⋅1+…
+= 2.9+∑0.9^k k>=2 = 2.9 + 8.1 = 11
+
+G2=R3+γR4+γ^2R5 = 1+0.9+∑0.9^k k>=2 = 1.9 + 8.1 = 10
+--------------------------------------------------------------------------------------
+Question 11:
+Give an equation for 𝑣𝜋 in terms of 𝑞𝜋 and 𝜋.
+v_π(s)= ∑ π(a∣s)q_π(s,a)     stocastic case
+        a∈A(s)
+v_π(s)= q_π(s,π(s))     deterministic case
+
+this is why:
+𝑣𝜋(𝑠) = 𝔼𝜋[𝐺𝑡 ∣ 𝑆𝑡 = 𝑠] = 𝔼𝜋[𝑅𝑡+1 + 𝛾𝐺𝑡+1 ∣ 𝑆𝑡 = 𝑠] =
+= ∑ 𝜋(𝑎|𝑠)∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝔼𝜋[𝐺𝑡+1 ∣𝑆𝑡+1 =𝑠′])
+  𝑎∈𝒜(𝑠)  𝑠′∈𝒮, 𝑟∈R
+𝑣𝜋(𝑠') = 𝔼𝜋[𝐺𝑡+1 ∣𝑆𝑡+1 =𝑠′]
+where
+q_π(s,a) = ∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝔼𝜋[𝐺𝑡+1 ∣𝑆𝑡+1=𝑠′])
+           𝑠′∈𝒮, 𝑟∈R
+hence: v_π(s)= ∑ π(a∣s)q_π(s,a)
+        a∈A(s)
+--------------------------------------------------------------------------------------
+Question 12:
+mdp/q – Equation for 𝑞𝜋.
+Give an equation for 𝑞𝜋 in terms of 𝑣𝜋 and the four-argument 𝑝.
+q_π(s,a) = ∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝑣𝜋(𝑠'))
+--------------------------------------------------------------------------------------
+Question 13:
+mdp/ret – Change of return.
+In episodic tasks and in continuing tasks, how does the return 𝐺𝑡 change if a constant 𝑐
+is added to all rewards 𝑅𝑡?
+𝐺𝑡' = 𝐺𝑡 + 𝑐 ∑ 𝛾^[𝑘−(𝑡+1)] t = t+1--T
+𝐺𝑡' = 𝐺𝑡 + 𝑐 * 1/1-𝛾 when |𝛾|<1
+--------------------------------------------------------------------------------------
+Question 14:
+mdp/bellman/qpi – Bellman equation for 𝑞𝜋.
+Analogous to the derivation of the Bellman equation for 𝑣𝜋, derive the Bellman equation for 𝑞𝜋.
+𝑞(𝑠,𝑎)=𝔼𝜋[𝐺𝑡 ∣ 𝑆𝑡 = 𝑠,𝐴𝑡 =𝑎]
+= 𝔼𝜋[𝑅𝑡+1 + 𝛾𝐺𝑡+1 ∣ 𝑆𝑡 = 𝑠, 𝐴𝑡 =𝑎]
+= ∑ 𝜋(𝑎|𝑠)∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝔼𝜋[𝐺𝑡+1 ∣𝑆𝑡+1 =𝑠′,𝐴𝑡 =𝑎])
+= ∑ 𝜋(𝑎|𝑠)∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝑞𝜋(𝑠′))
+ a∈A(s) 𝑠′∈𝒮, 𝑟∈R
+--------------------------------------------------------------------------------------
+Question 15:
+ mdp/vstar – Equation for 𝑣∗.
+Give an equation for 𝑣∗ in terms of 𝑞∗.
+𝑣∗(𝑠)= max 𝑞𝜋∗(𝑠,𝑎) 𝑎∈𝒜(𝑠)
+--------------------------------------------------------------------------------------
+Question 16:
+ mdp/qstar – Equation for 𝑞∗.
+Give an equation for 𝑞∗ in terms of 𝑣∗ and the four-argument 𝑝.
+𝑞∗(𝑠,𝑎)=𝔼[𝑅𝑡+1 +𝛾𝑣∗(𝑆𝑡+1)∣𝑆𝑡 =𝑠, 𝐴𝑡 =𝑎]
+∀(𝑠,𝑎)∈𝒮×𝒜(𝑠).
+= ∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾 v_*(𝑠′))
+--------------------------------------------------------------------------------------
+Question 17:
+mdp/pistar/vstar – Equation for 𝜋∗. Give an equation for 𝜋∗ in terms of 𝑞∗.
+𝜋*(𝑠) ∶= arg max 𝑞*𝜋(𝑠, 𝑎), 𝑎∈𝒜(𝑠)
+This means that in each state s the optimal policy chooses any action that achieves the maximum
+q∗(s,a)
+--------------------------------------------------------------------------------------
+Question 18:
+mdp/pistar/qstar – Equation for 𝜋∗.
+Give an equation for 𝜋∗ in terms of 𝑣∗ and the four-argument 𝑝.
+𝜋*(𝑠) ∶= arg max 𝑞*𝜋(𝑠, 𝑎) = ∑∑𝑝(𝑠′,𝑟∣𝑠,𝑎)(𝑟+𝛾𝑣∗(𝑠′)) 𝑎∈𝒜(𝑠) ∀𝑠∈𝒮.
+                            𝑠′∈𝒮 𝑟∈R
