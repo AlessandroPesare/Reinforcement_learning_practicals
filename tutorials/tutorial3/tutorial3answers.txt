@@ -1,0 +1,18 @@
+Question 1:
+...
+Question 2/5/6/7/8
+
+programming
+
+Question 3:
+mc/ctrl/ratio – Importance-sampling ratio in off-policy MC con- trol.
+In the off-policy MC-control algorithm in [1, Section 5.7], the importance- sampling ratio is updated according to
+𝑊∶= 𝑊 , 𝑏(𝐴𝑡|𝑆𝑡)
+although the definition of the importance-sampling ratio 𝜌𝑡∶𝑇 −1 implies 𝑊 ∶= 𝜋(𝐴𝑡|𝑆𝑡)𝑊.
+𝑏(𝐴𝑡|𝑆𝑡)
+Why is the update in the algorithm nevertheless correct?
+
+Because π is a deterministic 0–1 policy, any time π would insert a factor 0 you break and stop accumulating.
+On the steps you do accumulate, π=1, so
+π/b=1/b
+and W←W/b(At∣St)
