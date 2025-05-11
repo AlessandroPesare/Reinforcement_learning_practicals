@@ -128,7 +128,11 @@ See the code
 Question 6:
 dp/policy/iter – Policy iteration (programming).
 Implement policy iteration and use it to estimate 𝜋∗ for the grid world in Exercise gw/simple.
+
+See the code
 ----------------------------------------------------------------------------------------------------------------
 Question 7:
 dp/value/iter – Value iteration (programming).
 Implement value iteration and use it to estimate 𝜋∗ for the grid world in Exercise gw/simple.
+
+See the code
