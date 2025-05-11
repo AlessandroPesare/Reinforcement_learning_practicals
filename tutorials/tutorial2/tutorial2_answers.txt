@@ -1,0 +1,134 @@
+Question 1:
+dp/banach – Formulate Banach fixed-point theorem.
+Formulate the Banach fixed-point theorem after defining all relevant terms.
+
+
+Definition:
+Metric Space: A set 𝑋 together with a metric 𝑑, which defines the distance between any two points in 𝑋.
+Definition:
+Contraction Mapping: A function 𝑇: 𝑋 → 𝑋 is called a contraction if there exists a constant 0 ≤ 𝛼 < 1 such that for all 𝑥, 𝑦 in 𝑋,
+𝑑(𝑇(𝑥), 𝑇(𝑦)) ≤ 𝛼 · 𝑑(𝑥, 𝑦).
+
+Theorem Statement:
+Once the definitions are clear, you can state the Banach Fixed-Point Theorem:
+If 𝑋 is a complete metric space and 𝑇: 𝑋 → 𝑋 is a contraction mapping,
+then 𝑇 has a unique fixed point 𝑥 in 𝑋, and for any 𝑥₀ in 𝑋, the iterative sequence
+defined by 𝑥ₖ₊₁ = 𝑇(𝑥ₖ) converges to 𝑥*.
+----------------------------------------------------------------------------------------------------------------
+Question 2:
+dp/banach/proof – Prove Banach fixed-point theorem. Prove the Banach fixed-point theorem.
+
+Theorem (Banach Fixed-Point Theorem):
+Let (X,d) be a complete metric space and let T:X→X be a contraction mapping; that is,
+there exists a constant α with 0≤α<1 such that for every pair
+x,y ∈ X d(T(x),T(y)) ≤ αd(x,y).
+Then: T has a unique fixed point x*∈X (i.e.,T(x*)=x*).
+For any initial point x0∈X the sequence defined by
+xn+1=T(xn) converges to x*
+
+Step 1. Constructing the Sequence
+Let x0 be an arbitrary point in X. Define a sequence {xn} recursively by
+xn+1=T(xn) for n≥0.
+Step 2. Estimating the Distance Between Successive Terms
+We first show that the distance between successive terms in the sequence decreases in a controlled way.
+By the contraction property of T, for any n≥0 we have:
+d(xn+1,xn)=d(T(xn),T(xn−1))≤αd(xn,xn−1).
+This inequality can be applied recursively.
+For n=1, we have:
+d(x1,x0)=d(T(x0),x0) (initial distance).
+For n=2:
+d(x2,x1)≤αd(x1,x0).
+For n=3:
+d(x3,x2)≤α d(x2,x1)≤α^2 d(x1,x0).
+By induction, it follows that for all n≥1:
+d(xn+1,xn)≤α^n d(x1,x0).
+Step 3. Showing the Sequence is Cauchy. To show that the sequence {xn} converges in the
+complete metric space X, we demonstrate that it is a Cauchy sequence.
+Let m>n be arbitrary. By the triangle inequality:
+d(xm,xn)≤d(xm,xm−1)+d(xm−1,xm−2)+⋯+d(xn+1,xn).
+Using our previous estimate, we have:
+d(xm,xn) ≤ ∑ d(xk+1,xk )≤ ∑ α^k d(x1 ,x0).
+           k=n...m−1     k=n...m−1
+This sum is a finite portion of a geometric series. Recall that the sum of a geometric series from
+k=n to infinity is: ∑ α^k = α^n/1−α
+                    k=n...∞
+Thus, we have:
+d(xm,xn)≤d(x1,x0) ∑α^k   ≤ d(x1,x0)⋅ α^n/1−α
+                  k=n..m−1
+Since 0≤ α <1 as n→∞ α^n → 0
+Therefore, for every ε > 0, there exists an N such that for all n≥N and for all m>n,
+d(xm,xn)<ε.
+This shows that {xn} is a Cauchy sequence.
+
+Step 4. Convergence Using Completeness
+Because X is a complete metric space, every Cauchy sequence in X converges to a limit that is also in X.
+Let: x*= lim xn
+         n→∞
+
+Step 5. Showing x* is a Fixed Point
+Now, we must show that x* is indeed a fixed point of T.
+Since T is a contraction mapping (and hence Lipschitz continuous), we can take limits on both sides of the recursive definition:
+xn+1=T(xn).
+Taking the limit as n→∞ on both sides, we have:
+lim xn+1 = limT(xn)
+n→∞        n→∞
+Using the continuity of T, we can pass the limit inside the function:
+x*= T(lim(xn)) = T(x*)
+      n→∞
+Thus, x* is a fixed point of T.
+
+Step 6. Uniqueness of the Fixed Point
+Finally, we show that the fixed point x* is unique. Suppose there is another fixed point y*∈X such that:
+T(y*)=y*.
+Then, using the contraction property:
+d(x*,y*)=d(T(x*),T(y*))≤ α d(x*,y*).
+Since α<1 the only way this inequality can hold is if:
+d(x*,y*)=0.
+Thus, x*=y*, proving the uniqueness of the fixed point.
+
+Conclusion
+We have demonstrated that:
+The iterative sequence xn+1=T(xn) is Cauchy and converges to a limit x* in X (by the completeness of X).
+The limit x* is a fixed point of T (since T is continuous as a contraction mapping).
+The fixed point is unique (as any two fixed points must be at zero distance from each other).
+This completes the proof of the Banach Fixed-Point Theorem.
+----------------------------------------------------------------------------------------------------------------
+Question 3:
+dp/update/q – Update rule for 𝑞𝜋.
+Using the Bellman equation for 𝑞𝜋 (see Exercise mdp/bellman/qpi), find an update rule
+for the approximation 𝑞𝑘+1 of 𝑞𝜋 (in terms of 𝑞𝑘, 𝜋, and 𝑝) analogous to the update rule for 𝑣𝑘+1.
+
+We start from the Bellman equation for the action‐value function qπ, which is given by:
+qπ(s,a)= ∑ p(s′,r∣s,a)[r+γ ∑ π(a′∣s′)qπ(s′,a′)]
+         s′,r              a′
+
+Analogously to the update rule for vπ, we can define an iterative approximation
+qk to qπ by:
+qk+1(s,a)= ∑ p(s′,r∣s,a)[r+γ ∑ π(a′∣s′)qk(s′,a′)]
+         s′,r              a′
+
+This update rule uses the current estimate qk to compute the next estimate
+qk+1 and thereby converges to qπ under appropriate conditions.
+----------------------------------------------------------------------------------------------------------------
+Question 4:
+gw/simple – Simple 4 × 4 grid world (programming).
+Implement a 4×4 grid world with two terminal states in the upper left corner and lower right corners
+(resulting in 14 non-terminal states). The four actions 𝒜 = {up, down, left, right} act deterministically,
+the discount factor is 𝛾 = 1, and the reward is always equal to −1.
+Ensure that a maximum number of time steps can be specified.
+
+See the code
+----------------------------------------------------------------------------------------------------------------
+Question 5:
+dp/policy/eval – Iterative policy evaluation (programming). Implement iterative policy evaluation
+and use it to estimate 𝑣𝜋 for the grid world in Exercise gw/simple, where 𝜋 is the equiprobable random policy.
+
+See the code
+----------------------------------------------------------------------------------------------------------------
+Question 6:
+dp/policy/iter – Policy iteration (programming).
+Implement policy iteration and use it to estimate 𝜋∗ for the grid world in Exercise gw/simple.
+----------------------------------------------------------------------------------------------------------------
+Question 7:
+dp/value/iter – Value iteration (programming).
+Implement value iteration and use it to estimate 𝜋∗ for the grid world in Exercise gw/simple.
